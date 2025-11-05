@@ -2,9 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    // Firebase 사용 시: 버전 카탈로그에 alias가 없다면 아래 한 줄 추가
-    id("com.google.gms.google-services")
-
+    id("com.google.gms.google-services") // ✅ Firebase Plugin
 }
 
 android {
@@ -13,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.nexdish"
-        minSdk = 24          // ✅ 낮추기 권장
+        minSdk = 24
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -32,18 +30,21 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17   // ✅ 17 권장
+        sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
-        jvmTarget = "17"                               // ✅ 17 권장
+        jvmTarget = "17"
     }
+
     buildFeatures {
         compose = true
     }
 }
 
 dependencies {
+    // --- Compose 기본 ---
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -53,13 +54,22 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    // ✅ Firebase (BOM + 필요한 모듈 선택)
-    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    // --- Firebase ---
+    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-analytics")
-    // 로그인 쓰면: implementation("com.google.firebase:firebase-auth-ktx")
 
+    // --- Coroutine & Navigation ---
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0")
+    implementation(libs.androidx.navigation.compose)
+
+    // --- Android 기본 ---
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.core:core-ktx:1.13.1")
+
+    // --- Test ---
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
