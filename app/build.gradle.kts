@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    implementation("com.google.accompanist:accompanist-flowlayout:0.30.1")
+
     // --- Firebase ---
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
     implementation("com.google.firebase:firebase-auth-ktx")

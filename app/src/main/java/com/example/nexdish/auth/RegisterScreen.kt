@@ -23,14 +23,28 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.nexdish.LocalViewModelOwner
 
 @Composable
-fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = viewModel()) {
+fun RegisterScreen(navController: NavController) {
+
+    val owner = LocalViewModelOwner.current
+    val authViewModel: AuthViewModel = viewModel(owner)
+
     var email by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     val registerState by authViewModel.registerState.collectAsState()
+
+    // 🔥 여기에서 상태 변화 감지 후 네비게이션 처리
+    LaunchedEffect(registerState) {
+        if (registerState == true) {
+            navController.navigate("survey1") {
+                popUpTo("register") { inclusive = true }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -76,14 +90,15 @@ fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = 
             Text("회원가입")
         }
 
+        Spacer(Modifier.height(12.dp))
+
+        // 🔥 상태 표시
         when (registerState) {
-            true -> {
-                LaunchedEffect(Unit) { navController.navigate("login") }
-            }
-            false -> {
-                Text("회원가입 실패! 다시 시도하세요.", color = MaterialTheme.colorScheme.error)
-            }
-            null -> {}
+            false -> Text(
+                "회원가입 실패! 다시 시도하세요.",
+                color = MaterialTheme.colorScheme.error
+            )
+            else -> {}  // null / true 는 처리 X (네비게이션은 LaunchedEffect에서 처리)
         }
     }
 }

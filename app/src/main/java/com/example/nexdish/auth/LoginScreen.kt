@@ -33,6 +33,15 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
 
     val loginState by authViewModel.loginState.collectAsState()
 
+    // 🔥 로그인 성공 시 네비게이션 처리
+    LaunchedEffect(loginState) {
+        if (loginState is LoginState.Success) {
+            navController.navigate("home") {
+                popUpTo("login") { inclusive = true }  // 로그인 화면 제거
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,15 +84,28 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             Text("회원가입")
         }
 
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // 🔥 LoginState 처리 UI
         when (loginState) {
-            true -> {
-                // 로그인 성공 시 메인 화면으로 이동
-                LaunchedEffect(Unit) { navController.navigate("home") }
+            is LoginState.Loading -> {
+                Text("로그인 중입니다...", color = MaterialTheme.colorScheme.primary)
             }
-            false -> {
-                Text("로그인 실패! 이메일/비밀번호를 확인하세요.", color = MaterialTheme.colorScheme.error)
+
+            is LoginState.Error -> {
+                Text(
+                    (loginState as LoginState.Error).message ?: "로그인 실패",
+                    color = MaterialTheme.colorScheme.error
+                )
             }
-            null -> {}
+
+            LoginState.Success -> {
+                // LaunchedEffect에서 네비게이션을 처리하므로 UI는 안 넣어도 됨
+            }
+
+            LoginState.Idle -> {
+                // 아무것도 안 함 (초기 상태)
+            }
         }
     }
 }
