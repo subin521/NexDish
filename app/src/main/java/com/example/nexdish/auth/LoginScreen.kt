@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.nexdish.data.AuthViewModel
 
 @Composable
 fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = viewModel()) {

@@ -7,14 +7,15 @@ class AuthService {
     private val auth = FirebaseService.auth
     private val db = FirebaseService.db
 
-    suspend fun login(email: String, password: String): Result<Boolean> {
+    suspend fun login(email: String, password: String): Boolean {
         return try {
             auth.signInWithEmailAndPassword(email, password).await()
-            Result.success(true)
+            true
         } catch (e: Exception) {
-            Result.failure(e)
+            false
         }
     }
+
 
 
     suspend fun register(email: String, password: String, name: String): Boolean {

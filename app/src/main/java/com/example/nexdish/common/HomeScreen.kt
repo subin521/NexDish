@@ -1,18 +1,16 @@
 package com.example.nexdish.common
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -20,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.nexdish.common.model.TodayMeal
 import com.example.nexdish.navigation.BottomNavigationBar
 
 @Composable
@@ -96,4 +93,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = viewMode
     }
 }
 
-/* --- 이하 동일 (TopBar, Tabs, Cards, TodayRow, BottomNav) --- */
+
+
+

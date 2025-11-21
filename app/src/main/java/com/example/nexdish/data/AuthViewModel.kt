@@ -1,8 +1,8 @@
-package com.example.nexdish.auth
+package com.example.nexdish.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nexdish.data.AuthService
+import com.example.nexdish.auth.LoginState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

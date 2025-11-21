@@ -1,12 +1,13 @@
-package com.example.nexdish.auth
+package com.example.nexdish.data
 
 import android.util.Log
-import com.example.nexdish.data.AuthService
 
 class AuthRepository(
     private val service: AuthService = AuthService()
 ) {
-    suspend fun login(email: String, password: String) = service.login(email, password)
+    suspend fun login(email: String, password: String): Boolean {
+        return service.login(email, password)
+    }
 
     suspend fun register(email: String, password: String, name: String): Boolean {
         return try {

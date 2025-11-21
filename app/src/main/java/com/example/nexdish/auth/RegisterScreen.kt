@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.nexdish.LocalViewModelOwner
+import com.example.nexdish.data.AuthViewModel
 
 @Composable
 fun RegisterScreen(navController: NavController) {
